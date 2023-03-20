@@ -1,24 +1,31 @@
-<form class="space-y-6 w-full">
+<form class="space-y-6 w-full" [formGroup]="registerForm" (ngSubmit)="onSubmit()" (keydown.enter)="triggerForm()">
   <div class="w-full flex flex-col space-y-2">
     <label class="sr-only" for="firstname">{{ PLACEHOLDER.FIRSTNAME }}</label>
-    <input app-input id="firstname" type="text" autocomplete="first name" required
-      [placeholder]="PLACEHOLDER.FIRSTNAME" />
+    <input app-input id="firstname" formControlName="firstname" type="text" autocomplete="first name" required
+      [placeholder]="PLACEHOLDER.FIRSTNAME" [ngClass]="getInputErrorClass(!!firstnameErrors)" />
+    <app-registration-field-error [errors]="firstnameErrors"></app-registration-field-error>
 
     <label class="sr-only" for="lastname">{{ PLACEHOLDER.LASTNAME }} </label>
-    <input app-input id="lastname" type="text" autocomplete="last name" required [placeholder]="PLACEHOLDER.LASTNAME" />
+    <input app-input id="lastname" formControlName="lastname" type="text" autocomplete="last name" required
+      [placeholder]="PLACEHOLDER.LASTNAME" [ngClass]="getInputErrorClass(!!lastnameErrors)" />
+    <app-registration-field-error [errors]="lastnameErrors"></app-registration-field-error>
   </div>
 
   <div class="w-full flex flex-col space-y-2">
     <label class="sr-only" for="email">{{ PLACEHOLDER.EMAIL }} </label>
-    <input app-input id="email" type="email" autocomplete="email" required [placeholder]="PLACEHOLDER.EMAIL" />
+    <input app-input id="email" formControlName="email" type="email" autocomplete="email" required
+      [placeholder]="PLACEHOLDER.EMAIL" [ngClass]="getInputErrorClass(!!emailErrors)" />
+    <app-registration-field-error [errors]="emailErrors"></app-registration-field-error>
 
     <label class="sr-only" for="password">{{ PLACEHOLDER.PASSWORD }}</label>
-    <input app-input id="password" type="password" autocomplete="password" required
-      pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" [title]="'register.passwordTitle' | translate"
-      [placeholder]="PLACEHOLDER.PASSWORD" />
+    <input app-input id="password" formControlName="password" type="password" autocomplete="password" required
+      [pattern]="PASSWORD_PATTERN" [title]="'register.passwordTitle' | translate" [placeholder]="PLACEHOLDER.PASSWORD"
+      [ngClass]="getInputErrorClass(!!passwordErrors)" />
+    <app-registration-field-error [errors]="passwordErrors"></app-registration-field-error>
   </div>
 
-  <button app-button class="w-full">
-    {{ 'register.formSubmit' | translate }}
+  <button app-button class="w-full flex justify-center" type="submit" [disabled]="!registerForm.valid || loading">
+    <app-spinner *ngIf="loading"></app-spinner>
+    {{ loading ? 'register.registering' : 'register.formSubmit' | translate }}
   </button>
 </form>

@@ -1,38 +1,68 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, shareReplay } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  firstValueFrom,
+  map,
+  shareReplay,
+  startWith,
+  Subject,
+  tap,
+} from 'rxjs';
+import { API_BASE_URL } from '../tokens';
 
-const STORAGE_KEY = 'demoBay_auth';
-
-export interface AuthState {
-  isRegistered?: boolean;
-  username?: string;
+export interface RegisterPostBody {
+  firstName: string;
+  lastName: string;
+  email: string;
 }
-
-const initial: AuthState = {};
+export type AuthTokenState = Partial<RegisterPostBody>;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthenticationService {
-  // For now the state is read from Storage
-  // Once BE is readonly, change it with token decryption
-  private _state$$ = new BehaviorSubject<AuthState>(initialAuthState());
-  public state$ = this._state$$.asObservable().pipe(shareReplay(1));
+  private tokenDetails$$ = new BehaviorSubject<Partial<AuthTokenState>>({});
+  private registrationInProgress$$ = new BehaviorSubject<boolean>(false);
+  private registrationError$$ = new Subject<Nullable<string>>();
 
-  constructor() {}
+  public state$ = combineLatest([
+    this.tokenDetails$$,
+    this.registrationInProgress$$,
+    this.registrationError$$.pipe(startWith(undefined)),
+  ]).pipe(
+    map(([token, registrationInProgress, registrationError]) => ({
+      ...token,
+      registrationInProgress,
+      registrationError,
+    })),
+    shareReplay(1)
+  );
 
-  public register(username: string) {
-    const curr = this._state$$.getValue();
-    this._state$$.next({ ...curr, username, isRegistered: true });
+  constructor(
+    @Inject(API_BASE_URL) private apiBaseUrl: string,
+    private http: HttpClient
+  ) {}
+
+  public async register(body: RegisterPostBody) {
+    return firstValueFrom(this.registerRequest(body));
   }
-}
 
-function initialAuthState() {
-  try {
-    return JSON.parse(
-      localStorage.getItem(STORAGE_KEY) ?? JSON.stringify(initial)
-    ) as AuthState;
-  } catch (e) {
-    return initial;
+  private registerRequest(body: RegisterPostBody) {
+    this.registrationInProgress$$.next(true);
+    this.registrationError$$.next(undefined);
+    return this.http.post(`${this.apiBaseUrl}/users`, body).pipe(
+      tap({
+        next: (r) => {
+          this.registrationInProgress$$.next(false);
+          this.tokenDetails$$.next(r);
+        },
+        error: (e) => {
+          this.registrationError$$.next(e);
+          this.registrationInProgress$$.next(false);
+        },
+      })
+    );
   }
 }

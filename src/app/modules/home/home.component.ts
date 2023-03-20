@@ -12,6 +12,6 @@ import { ROUTES } from 'src/app/constants/routes';
 export class HomeComponent {
   constructor(private auth: AuthenticationService) {}
 
-  public username$ = this.auth.state$.pipe(map((s) => s?.username));
+  public username$ = this.auth.state$.pipe(map((s) => s?.firstName));
   public ROUTES = ROUTES;
 }

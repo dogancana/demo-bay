@@ -14,6 +14,13 @@
     "emailPlaceholder": "Email",
     "passwordPlaceholder": "Password",
     "passwordTitle": "Must contain at least one uppercase and lowercase letter, at least 8 or more characters and must not contain user's first or last name.",
-    "formSubmit": "Register Now"
+    "formSubmit": "Register Now",
+    "registering": "Registering",
+    "requiredError": "This field is required",
+    "passwordPatternError": "Password must contain at least one uppercase and lowercase letter and at least 8 or more characters",
+    "passowordPredictableError": "Password must not contain first name or last name",
+    "emailPatternError": "Please provide a valid email address",
+    "genericFormError": "Please provide a valid value",
+    "success": "You registered succesfully. You will be redirected soon..."
   }
 }

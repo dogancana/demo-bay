@@ -2,15 +2,16 @@ import { TestBed } from '@angular/core/testing';
 
 import { AuthenticationService } from './authentication.service';
 
-describe('AuthenticationService', () => {
+describe('AuthenticationService (isolated)', () => {
   let service: AuthenticationService;
+  let postSpy: jest.SpyInstance;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthenticationService);
+    postSpy = jest.fn();
+    service = new AuthenticationService('', { post: postSpy } as any);
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
+  it('should create', () => {
+    expect(service).toBeDefined();
   });
 });

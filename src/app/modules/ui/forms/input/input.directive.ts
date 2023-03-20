@@ -3,7 +3,7 @@ import { Directive, HostBinding } from '@angular/core';
 @Directive({
   selector: '[app-input]',
 })
-export class InputComponent {
+export class InputDirective {
   @HostBinding('class') get classes() {
     return `relative block w-full rounded-t-md border-0 py-1.5 text-gray-900
      ring-1 ring-inset ring-gray-300

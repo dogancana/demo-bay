@@ -13,6 +13,8 @@ import { NavigationModule } from './modules/navigation/navigation.module';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { catchError, from, of } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { API_BASE_URL } from './tokens';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,6 +38,10 @@ import { CommonModule } from '@angular/common';
       useFactory: appInitializeFactory,
       deps: [TranslateService],
       multi: true,
+    },
+    {
+      provide: API_BASE_URL,
+      useValue: environment.apiBaseUrl,
     },
   ],
   bootstrap: [AppComponent],

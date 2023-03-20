@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from './button.component';
+import { ButtonDirective } from './button.directive';
 
-const publicComponents = [ButtonComponent];
+const publicComponents = [ButtonDirective];
 
 @NgModule({
   declarations: [...publicComponents],

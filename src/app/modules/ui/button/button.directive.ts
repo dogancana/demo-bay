@@ -11,7 +11,7 @@ const classMap: { [key in ButtonType]: string } = {
 @Directive({
   selector: '[app-button]',
 })
-export class ButtonComponent {
+export class ButtonDirective {
   @Input()
   public buttonType: ButtonType = 'primary';
 
