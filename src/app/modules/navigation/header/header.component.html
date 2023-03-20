@@ -1,0 +1,23 @@
+<header class="bg-indigo-50 sticky top-0">
+  <nav class="mx-auto flex items-center justify-between p-6 lg:px-8">
+    <div class="flex lg:flex-1">
+      <a href="https://github.com/dogancana/demo-bay" target="_blank" class="">
+        <span class="sr-only">DemoBay</span>
+        <img class="h-8 w-auto" src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="">
+      </a>
+    </div>
+    <ng-container *ngIf="username$ | async as name; else notRegistered">
+      <div class="lg:flex lg:justify-end">
+        Welcome {{ name }}
+      </div>
+    </ng-container>
+    <ng-template #notRegistered>
+      <div class="lg:flex lg:flex-1 lg:justify-end">
+        <a [href]="ROUTES.REGISTER" class="text-sm font-semibold leading-6 text-gray-900">
+          {{ 'header.loginLink' | translate }}
+          <span aria-hidden="true">&rarr;</span>
+        </a>
+      </div>
+    </ng-template>
+  </nav>
+</header>

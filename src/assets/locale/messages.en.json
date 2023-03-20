@@ -1,0 +1,19 @@
+{
+  "header": {
+    "loginLink": "Log in"
+  },
+  "home": {
+    "header": "Get notified when we're launching.",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+    "registerLink": "Register"
+  },
+  "register": {
+    "header": "Register to get latest updates",
+    "firstnamePlaceholder": "First name",
+    "lastnamePlaceholder": "Last name",
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "passwordTitle": "Must contain at least one uppercase and lowercase letter, at least 8 or more characters and must not contain user's first or last name.",
+    "formSubmit": "Register Now"
+  }
+}

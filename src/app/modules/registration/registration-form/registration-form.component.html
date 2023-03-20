@@ -1,0 +1,24 @@
+<form class="space-y-6 w-full">
+  <div class="w-full flex flex-col space-y-2">
+    <label class="sr-only" for="firstname">{{ PLACEHOLDER.FIRSTNAME }}</label>
+    <input app-input id="firstname" type="text" autocomplete="first name" required
+      [placeholder]="PLACEHOLDER.FIRSTNAME" />
+
+    <label class="sr-only" for="lastname">{{ PLACEHOLDER.LASTNAME }} </label>
+    <input app-input id="lastname" type="text" autocomplete="last name" required [placeholder]="PLACEHOLDER.LASTNAME" />
+  </div>
+
+  <div class="w-full flex flex-col space-y-2">
+    <label class="sr-only" for="email">{{ PLACEHOLDER.EMAIL }} </label>
+    <input app-input id="email" type="email" autocomplete="email" required [placeholder]="PLACEHOLDER.EMAIL" />
+
+    <label class="sr-only" for="password">{{ PLACEHOLDER.PASSWORD }}</label>
+    <input app-input id="password" type="password" autocomplete="password" required
+      pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" [title]="'register.passwordTitle' | translate"
+      [placeholder]="PLACEHOLDER.PASSWORD" />
+  </div>
+
+  <button app-button class="w-full">
+    {{ 'register.formSubmit' | translate }}
+  </button>
+</form>
